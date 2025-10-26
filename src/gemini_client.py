@@ -1,4 +1,3 @@
-# src/gemini_client.py
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
@@ -9,13 +8,19 @@ load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 def get_model():
-    # Text-only model (e.g., 'gemini-1.5-pro' veya okulunuzun erişimine uygun olan)
-    model = genai.GenerativeModel(
-        model_name="gemini-2.5-flash",   # veya "gemini-2.5-pro"
+    """Structured JSON output için (SQL üretimi)"""
+    return genai.GenerativeModel(
+        model_name="gemini-2.5-flash",
         system_instruction=SYSTEM_PROMPT,
         generation_config={
             "response_mime_type": "application/json",
             "response_schema": CHATBOT_RESPONSE_SCHEMA
         }
     )
-    return model
+
+def get_text_model():
+    """Natural language explanation için (plain text)"""
+    return genai.GenerativeModel(
+        model_name="gemini-2.5-flash",
+        generation_config={"response_mime_type": "text/plain"}
+    )
