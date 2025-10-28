@@ -1,7 +1,7 @@
 import gradio as gr
 from src.sql_agent import pipeline
 
-INTRO = "Northwind Chatbot hazır. Türkçe/English sorabilirsiniz. Sadece SELECT sorguları çalışır."
+INTRO = "Northwind Chatbot"
 
 def chat_fn(history, message):
     try:
